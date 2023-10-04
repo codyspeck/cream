@@ -30,7 +30,7 @@ public class TextCommandHandler : INotificationHandler<MessageReceivedNotificati
         if (!message.HasCharPrefix('!', ref position))
             return;
 
-        _logger.Debug("Receiving message from {Author}.", request.SocketMessage.Author.Username);
+        _logger.Debug("Receiving message from {Author}", request.SocketMessage.Author.Username);
         
         var context = new SocketCommandContext(_client, message);
 

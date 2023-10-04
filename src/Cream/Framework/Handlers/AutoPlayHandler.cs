@@ -16,7 +16,7 @@ public class AutoPlayHandler : INotificationHandler<OnTrackEndNotification>
     {
         if (!notification.Arg.Player.Vueue.TryDequeue(out var track))
         {
-            _logger.Debug("Queue ended.");
+            _logger.Debug("Queue ended");
             return;
         }
         
