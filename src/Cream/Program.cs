@@ -25,7 +25,11 @@ await using var provider = new ServiceCollection()
     .AddLogging(lb => lb.AddSerilog(Log.Logger, dispose: true))
     .AddSerilog(Log.Logger)
     .AddDiscordSocketClient()
-    .AddLavaNode()
+    .AddLavaNode(nc =>
+    {
+        nc.Hostname = configuration.LavalinkHost;
+        nc.Authorization = configuration.LavalinkPassword;
+    })
     .AddMediatR(m => m
         .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
     .AddSingleton<CommandService>()
