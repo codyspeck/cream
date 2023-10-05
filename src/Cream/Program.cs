@@ -34,8 +34,7 @@ builder.Services
 
 using var app = builder.Build();
 
-app.Services
+await app
     .RegisterDiscordSocketClientEvents()
-    .RegisterLavaNodeEvents();
-
-await app.RunAsync();
+    .RegisterLavaNodeEvents()
+    .RunAsync();

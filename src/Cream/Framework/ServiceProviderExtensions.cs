@@ -2,19 +2,20 @@
 using Discord.WebSocket;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Victoria.Node;
 
 namespace Cream.Framework;
 
 public static class ServiceProviderExtensions
 {
-    public static IServiceProvider RegisterDiscordSocketClientEvents(this IServiceProvider provider)
+    public static IHost RegisterDiscordSocketClientEvents(this IHost host)
     {
-        var client = provider.GetRequiredService<DiscordSocketClient>();
+        var client = host.Services.GetRequiredService<DiscordSocketClient>();
 
         client.Log += async message =>
         {
-            await using var scope = provider.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
 
             await scope.ServiceProvider
                 .GetRequiredService<IMediator>()
@@ -23,7 +24,7 @@ public static class ServiceProviderExtensions
         
         client.MessageReceived += async message =>
         {
-            await using var scope = provider.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
             
             await scope.ServiceProvider
                 .GetRequiredService<IMediator>()
@@ -32,23 +33,23 @@ public static class ServiceProviderExtensions
         
         client.Ready += async () =>
         {
-            await using var scope = provider.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
             
             await scope.ServiceProvider
                 .GetRequiredService<IMediator>()
                 .Publish(new ReadyNotification());
         };
         
-        return provider;
+        return host;
     }
 
-    public static IServiceProvider RegisterLavaNodeEvents(this IServiceProvider provider)
+    public static IHost RegisterLavaNodeEvents(this IHost host)
     {
-        var node = provider.GetRequiredService<LavaNode>();
+        var node = host.Services.GetRequiredService<LavaNode>();
         
         node.OnTrackEnd += async arg =>
         {
-            await using var scope = provider.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
             
             await scope.ServiceProvider
                 .GetRequiredService<IMediator>()
@@ -57,13 +58,13 @@ public static class ServiceProviderExtensions
 
         node.OnTrackStart += async arg =>
         {
-            await using var scope = provider.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
 
             await scope.ServiceProvider
                 .GetRequiredService<IMediator>()
                 .Publish(new OnTrackStartNotification(arg));
         };
 
-        return provider;
+        return host;
     }
 }
