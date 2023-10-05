@@ -26,7 +26,7 @@ public class LogHandler : INotificationHandler<LogNotification>
             LogSeverity.Critical => LogEventLevel.Fatal
         };
         
-        _logger.Write(level, notification.LogMessage.Exception, notification.LogMessage.Message);
+        _logger.Write(level, notification.LogMessage.Exception, $"${notification.LogMessage.Source}: ${notification.LogMessage.Message}");
         
         return Task.CompletedTask;
     }

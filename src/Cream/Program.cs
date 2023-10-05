@@ -18,7 +18,9 @@ var configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build()
     .Get<CreamConfiguration>();
-    
+
+Log.Logger.Information("{@Configuration}", configuration);
+
 await using var provider = new ServiceCollection()
     .AddLogging(lb => lb.AddSerilog(Log.Logger, dispose: true))
     .AddSerilog(Log.Logger)
@@ -27,12 +29,16 @@ await using var provider = new ServiceCollection()
     .AddMediatR(m => m
         .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
     .AddSingleton<CommandService>()
-    .BuildServiceProvider()
-    .RegisterDiscordSocketClientMessages();
+    .BuildServiceProvider();
 
-var client = provider.GetRequiredService<DiscordSocketClient>();
+provider
+    .RegisterDiscordSocketClientEvents()
+    .RegisterLavaNodeEvents();
 
-await client.LoginAsync(TokenType.Bot, configuration!.Token);
+var client = provider
+    .GetRequiredService<DiscordSocketClient>();
+
+await client.LoginAsync(TokenType.Bot, configuration.Token);
 await client.StartAsync();
 
 await Task.Delay(-1);

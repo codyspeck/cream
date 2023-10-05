@@ -8,10 +8,9 @@ namespace Cream.Framework;
 
 public static class ServiceProviderExtensions
 {
-    public static ServiceProvider RegisterDiscordSocketClientMessages(this ServiceProvider provider)
+    public static ServiceProvider RegisterDiscordSocketClientEvents(this ServiceProvider provider)
     {
         var client = provider.GetRequiredService<DiscordSocketClient>();
-        var node = provider.GetRequiredService<LavaNode>();
 
         client.Log += async message =>
         {
@@ -40,6 +39,13 @@ public static class ServiceProviderExtensions
                 .Publish(new ReadyNotification());
         };
         
+        return provider;
+    }
+
+    public static ServiceProvider RegisterLavaNodeEvents(this ServiceProvider provider)
+    {
+        var node = provider.GetRequiredService<LavaNode>();
+        
         node.OnTrackEnd += async arg =>
         {
             await using var scope = provider.CreateAsyncScope();
@@ -57,7 +63,7 @@ public static class ServiceProviderExtensions
                 .GetRequiredService<IMediator>()
                 .Publish(new OnTrackStartNotification(arg));
         };
-        
+
         return provider;
     }
 }
