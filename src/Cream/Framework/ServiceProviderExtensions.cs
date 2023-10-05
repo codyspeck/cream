@@ -13,6 +13,15 @@ public static class ServiceProviderExtensions
         var client = provider.GetRequiredService<DiscordSocketClient>();
         var node = provider.GetRequiredService<LavaNode>();
 
+        client.Log += async message =>
+        {
+            await using var scope = provider.CreateAsyncScope();
+
+            await scope.ServiceProvider
+                .GetRequiredService<IMediator>()
+                .Publish(new LogNotification(message));
+        };
+        
         client.MessageReceived += async message =>
         {
             await using var scope = provider.CreateAsyncScope();

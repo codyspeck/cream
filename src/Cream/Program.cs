@@ -14,7 +14,8 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var configuration = new ConfigurationBuilder()
-    .AddJsonFile(Constants.AppSettings)
+    .AddJsonFile(Constants.AppSettings, optional: true)
+    .AddEnvironmentVariables()
     .Build()
     .Get<CreamConfiguration>();
     
