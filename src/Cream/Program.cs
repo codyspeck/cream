@@ -29,8 +29,7 @@ builder.Services
         .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
     .AddSingleton<CommandService>()
     .AddSingleton(configuration)
-    .AddHostedService<DiscordBotBackgroundService>()
-    .BuildServiceProvider();
+    .AddHostedService<DiscordBotBackgroundService>();
 
 using var app = builder.Build();
 
