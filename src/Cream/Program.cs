@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
 using Cream;
 using Cream.Framework;
-using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Victoria;
 
 Log.Logger = new LoggerConfiguration()
@@ -13,15 +12,11 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateLogger();
 
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile(Constants.AppSettings, optional: true)
-    .AddEnvironmentVariables()
-    .Build()
-    .Get<CreamConfiguration>();
+var builder = Host.CreateApplicationBuilder();
 
-Log.Logger.Information("{@Configuration}", configuration);
+var configuration = builder.Configuration.Get<CreamConfiguration>();
 
-await using var provider = new ServiceCollection()
+builder.Services
     .AddLogging(lb => lb.AddSerilog(Log.Logger, dispose: true))
     .AddSerilog(Log.Logger)
     .AddDiscordSocketClient()
@@ -33,16 +28,14 @@ await using var provider = new ServiceCollection()
     .AddMediatR(m => m
         .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
     .AddSingleton<CommandService>()
+    .AddSingleton(configuration)
+    .AddHostedService<DiscordBotBackgroundService>()
     .BuildServiceProvider();
 
-provider
+using var app = builder.Build();
+
+app.Services
     .RegisterDiscordSocketClientEvents()
     .RegisterLavaNodeEvents();
 
-var client = provider
-    .GetRequiredService<DiscordSocketClient>();
-
-await client.LoginAsync(TokenType.Bot, configuration.Token);
-await client.StartAsync();
-
-await Task.Delay(-1);
+await app.RunAsync();

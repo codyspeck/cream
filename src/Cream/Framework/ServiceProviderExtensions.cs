@@ -8,7 +8,7 @@ namespace Cream.Framework;
 
 public static class ServiceProviderExtensions
 {
-    public static ServiceProvider RegisterDiscordSocketClientEvents(this ServiceProvider provider)
+    public static IServiceProvider RegisterDiscordSocketClientEvents(this IServiceProvider provider)
     {
         var client = provider.GetRequiredService<DiscordSocketClient>();
 
@@ -42,7 +42,7 @@ public static class ServiceProviderExtensions
         return provider;
     }
 
-    public static ServiceProvider RegisterLavaNodeEvents(this ServiceProvider provider)
+    public static IServiceProvider RegisterLavaNodeEvents(this IServiceProvider provider)
     {
         var node = provider.GetRequiredService<LavaNode>();
         

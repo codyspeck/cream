@@ -478,3 +478,6 @@ $RECYCLE.BIN/
 
 # Rider
 .idea/
+
+# Appsettings
+appsettings.[Dd]evelopment.json
