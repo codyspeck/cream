@@ -45,7 +45,7 @@ public class PowerHourHandler : INotificationHandler<SelectMenuExecutedNotificat
         var response = await _lavaNode.SearchAsync(SearchType.Direct, notification.Component.Data.Values.First());
 
         if (!_lavaNode.TryGetPlayer(channel.Guild, out var player))
-            await _lavaNode.JoinAsync(voiceState.VoiceChannel);
+            player = await _lavaNode.JoinAsync(voiceState.VoiceChannel);
         
         player.Vueue.Enqueue(response.Tracks.First());
 
