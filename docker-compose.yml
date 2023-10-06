@@ -3,5 +3,9 @@ services:
     image: "fredboat/lavalink"
     ports:
       - "2333:2333"
-    volumes:
-      - "./application.yml:/opt/Lavalink/application.yml"
+    environment:
+      SERVER_ADDRESS: "0.0.0.0"
+      SERVER_PORT: "2333"
+      LAVALINK_SERVER_PASSWORD: "youshallnotpass"
+      LAVALINK_SERVER_SOURCES_YOUTUBE: "true"
+      LAVALINK_SERVER_SOURCES_SOUNDCLOUD: "true"
