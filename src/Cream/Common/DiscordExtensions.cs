@@ -20,4 +20,18 @@ public static class DiscordExtensions
     {
         return condition ? fn(builder) : builder;
     }
+
+    public static SelectMenuBuilder AddOptions<T>(
+        this SelectMenuBuilder builder,
+        IEnumerable<T> source,
+        Func<T, (string, string)> selector)
+    {
+        foreach (var item in source)
+        {
+            var (label, value) = selector(item);
+            builder.AddOption(label, value);
+        }
+
+        return builder;
+    }
 }

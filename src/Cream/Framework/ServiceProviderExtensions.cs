@@ -39,14 +39,23 @@ public static class ServiceProviderExtensions
                 .GetRequiredService<IMediator>()
                 .Publish(new ReadyNotification());
         };
-        
+
+        client.SelectMenuExecuted += async component =>
+        {
+            await using var scope = host.Services.CreateAsyncScope();
+
+            await scope.ServiceProvider
+                .GetRequiredService<IMediator>()
+                .Publish(new SelectMenuExecutedNotification(component));
+        };
+
         return host;
     }
 
     public static IHost RegisterLavaNodeEvents(this IHost host)
     {
         var node = host.Services.GetRequiredService<LavaNode>();
-        
+
         node.OnTrackEnd += async arg =>
         {
             await using var scope = host.Services.CreateAsyncScope();
