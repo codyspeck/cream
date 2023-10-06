@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Cream;
+using Cream.Common;
 using Cream.Framework;
 using Discord.Commands;
 using Microsoft.Extensions.Configuration;
@@ -7,14 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Victoria;
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .WriteTo.Console()
-    .CreateLogger();
-
 var builder = Host.CreateApplicationBuilder();
 
 var configuration = builder.Configuration.Get<CreamConfiguration>();
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .When(!string.IsNullOrWhiteSpace(configuration.SeqHost), cfg => cfg.WriteTo.Seq(configuration.SeqHost))
+    .CreateLogger();
 
 builder.Services
     .AddLogging(lb => lb.AddSerilog(Log.Logger, dispose: true))

@@ -9,4 +9,6 @@ public class CreamConfiguration
     public string LavalinkHost { get; init; }
     
     public string LavalinkPassword { get; init; }
+
+    public string SeqHost { get; init; }
 }
