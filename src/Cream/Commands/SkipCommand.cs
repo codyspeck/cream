@@ -13,6 +13,7 @@ public class SkipCommand : ModuleBase<SocketCommandContext>
     }
 
     [Command("skip")]
+    [Summary("Skip the current song.")]
     public async Task ExecuteAsync()
     {
         // bot is not currently in a voice channel

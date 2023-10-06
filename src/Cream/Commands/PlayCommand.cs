@@ -16,6 +16,7 @@ public class PlayCommand : ModuleBase<SocketCommandContext>
     }
 
     [Command("play")]
+    [Summary("Play a song.")]
     public async Task ExecuteAsync([Remainder] string query)
     {
         // bot is not in a voice channel

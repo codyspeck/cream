@@ -10,13 +10,20 @@ public class TextCommandHandler : INotificationHandler<MessageReceivedNotificati
     private readonly DiscordSocketClient _client;
     private readonly CommandService _service;
     private readonly IServiceProvider _provider;
+    private readonly CreamConfiguration _configuration;
     private readonly ILogger _logger;
 
-    public TextCommandHandler(DiscordSocketClient client, CommandService service, IServiceProvider provider, ILogger logger)
+    public TextCommandHandler(
+        DiscordSocketClient client,
+        CommandService service,
+        IServiceProvider provider,
+        CreamConfiguration configuration,
+        ILogger logger)
     {
         _client = client;
         _service = service;
         _provider = provider;
+        _configuration = configuration;
         _logger = logger;
     }
 
@@ -27,7 +34,7 @@ public class TextCommandHandler : INotificationHandler<MessageReceivedNotificati
 
         var position = 0;
 
-        if (!message.HasCharPrefix('!', ref position))
+        if (!message.HasCharPrefix(_configuration.MessagePrefix, ref position))
             return;
 
         _logger.Debug("Receiving message from {Author}", request.SocketMessage.Author.Username);

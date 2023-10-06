@@ -1,4 +1,5 @@
 ﻿using Cream.Framework.Notifications;
+using Discord;
 using MediatR;
 
 namespace Cream.Framework.Handlers;
@@ -7,6 +8,10 @@ public class AnnounceTrackHandler : INotificationHandler<OnTrackStartNotificatio
 {
     public async Task Handle(OnTrackStartNotification notification, CancellationToken cancellationToken)
     {
-        await notification.Arg.Player.TextChannel.SendMessageAsync($"Now playing: {notification.Arg.Track.Title}");
+        var embed = new EmbedBuilder()
+            .WithDescription($"Playing: {notification.Arg.Track.Title}")
+            .Build();
+        
+        await notification.Arg.Player.TextChannel.SendMessageAsync(embed: embed);
     }
 }

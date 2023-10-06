@@ -14,6 +14,7 @@ public class JoinCommand : ModuleBase<SocketCommandContext>
     }
 
     [Command("join")]
+    [Summary("Join the user's voice channel.")]
     public async Task ExecuteAsync()
     {
         // bot is already in a voice channel

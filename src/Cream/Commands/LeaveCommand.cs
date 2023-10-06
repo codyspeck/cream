@@ -13,6 +13,7 @@ public class LeaveCommand : ModuleBase<SocketCommandContext>
     }
 
     [Command("leave")]
+    [Summary("Leave the active voice channel.")]
     public async Task ExecuteAsync()
     {
         // bot is not currently in a voice channel

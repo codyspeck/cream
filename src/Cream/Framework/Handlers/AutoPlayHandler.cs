@@ -1,5 +1,6 @@
 ﻿using Cream.Framework.Notifications;
 using MediatR;
+using Victoria.Player;
 
 namespace Cream.Framework.Handlers;
 
@@ -14,11 +15,11 @@ public class AutoPlayHandler : INotificationHandler<OnTrackEndNotification>
 
     public async Task Handle(OnTrackEndNotification notification, CancellationToken cancellationToken)
     {
-        if (!notification.Arg.Player.Vueue.TryDequeue(out var track))
-        {
-            _logger.Debug("Queue ended");
+        if (notification.Arg.Reason is TrackEndReason.Stopped)
             return;
-        }
+        
+        if (!notification.Arg.Player.Vueue.TryDequeue(out var track))
+            return;
         
         await notification.Arg.Player.PlayAsync(track);
     }

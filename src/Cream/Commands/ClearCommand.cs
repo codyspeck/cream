@@ -3,26 +3,25 @@ using Victoria.Node;
 
 namespace Cream.Commands;
 
-public class StopCommand : ModuleBase<SocketCommandContext>
+public class ClearCommand : ModuleBase<SocketCommandContext>
 {
     private readonly LavaNode _lavaNode;
 
-    public StopCommand(LavaNode lavaNode)
+    public ClearCommand(LavaNode lavaNode)
     {
         _lavaNode = lavaNode;
     }
 
-    [Command("stop")]
-    [Summary("Stop the queue.")]
+    [Command("clear")]
+    [Summary("Clear the queue.")]
     public async Task ExecuteAsync()
     {
-        // bot is not currently in a voice channel
         if (!_lavaNode.TryGetPlayer(Context.Guild, out var player))
         {
             await ReplyAsync("I'm not currently in a voice channel.");
             return;
         }
-        
-        await player.StopAsync();
+
+        player.Vueue.Clear();
     }
 }
