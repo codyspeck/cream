@@ -1,6 +1,6 @@
 services: 
   lavalink:
-    image: "fredboat/lavalink"
+    image: "fredboat/lavalink:4.0.0-beta.4"
     ports:
       - "2333:2333"
     environment:
