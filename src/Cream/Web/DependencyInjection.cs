@@ -32,7 +32,8 @@ public static class DependencyInjection
             options.BaseAddress = lavalinkConfiguration.Host;
             options.Passphrase = lavalinkConfiguration.Password;
         });
-        
+
+        services.AddHostedService<BotAudioService>();
         services.AddHostedService<BotService>();
         
         return services;
