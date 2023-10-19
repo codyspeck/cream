@@ -3,8 +3,9 @@ using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using DiscordConfiguration = Cream.Api.Configuration.DiscordConfiguration;
 
-namespace Cream.Api;
+namespace Cream.Api.Services;
 
 public class BotService : BackgroundService
 {

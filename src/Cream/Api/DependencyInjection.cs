@@ -1,7 +1,10 @@
-﻿using DSharpPlus;
+﻿using Cream.Api.Configuration;
+using Cream.Api.Services;
+using DSharpPlus;
 using Lavalink4NET.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DiscordConfiguration = Cream.Api.Configuration.DiscordConfiguration;
 
 namespace Cream.Api;
 

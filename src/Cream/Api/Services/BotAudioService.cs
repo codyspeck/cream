@@ -2,7 +2,7 @@
 using Lavalink4NET;
 using Microsoft.Extensions.Hosting;
 
-namespace Cream.Api;
+namespace Cream.Api.Services;
 
 public class BotAudioService : BackgroundService
 {

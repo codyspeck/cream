@@ -1,4 +1,4 @@
-﻿namespace Cream.Api;
+﻿namespace Cream.Api.Configuration;
 
 public record DiscordConfiguration(string Token, string Prefix)
 {
