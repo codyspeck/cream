@@ -3,7 +3,7 @@ using DSharpPlus.CommandsNext.Attributes;
 using Lavalink4NET;
 using Lavalink4NET.Rest.Entities.Tracks;
 
-namespace Cream.Web.Commands;
+namespace Cream.Api.Commands;
 
 public class PlayCommand : BaseCommandModule
 {

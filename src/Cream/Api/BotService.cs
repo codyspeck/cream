@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using Lavalink4NET;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace Cream.Web;
+namespace Cream.Api;
 
 public class BotService : BackgroundService
 {

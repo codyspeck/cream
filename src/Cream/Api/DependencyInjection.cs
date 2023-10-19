@@ -3,7 +3,7 @@ using Lavalink4NET.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cream.Web;
+namespace Cream.Api;
 
 public static class DependencyInjection
 {

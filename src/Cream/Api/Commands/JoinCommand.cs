@@ -5,7 +5,7 @@ using Lavalink4NET.Players;
 using Lavalink4NET.Players.Queued;
 using Microsoft.Extensions.Options;
 
-namespace Cream.Web.Commands;
+namespace Cream.Api.Commands;
 
 public class JoinCommand : BaseCommandModule
 {

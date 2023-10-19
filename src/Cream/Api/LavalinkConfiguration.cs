@@ -1,4 +1,4 @@
-﻿namespace Cream.Web;
+﻿namespace Cream.Api;
 
 public record LavalinkConfiguration(Uri Host, string Password)
 {

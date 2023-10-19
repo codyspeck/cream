@@ -2,7 +2,7 @@
 using DSharpPlus.CommandsNext.Attributes;
 using Lavalink4NET;
 
-namespace Cream.Web.Commands;
+namespace Cream.Api.Commands;
 
 public class LeaveCommand : BaseCommandModule
 {
