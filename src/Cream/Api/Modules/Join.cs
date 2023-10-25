@@ -20,10 +20,7 @@ public class Join : BaseCommandModule
     public async Task Execute(CommandContext ctx)
     {
         if (ctx.Member?.VoiceState is null)
-        {
-            await ctx.RespondAsync("You are not connected to a voice channel.");
             return;
-        }
         
         _ = await _audioService.Players.JoinAsync(
             ctx.Guild.Id,
