@@ -17,7 +17,7 @@ public class BotAudioService : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _audioService.TrackStarted += async (sender, args) =>
+        _audioService.TrackStarted += async (_, args) =>
         {
             var channel = await _client.GetChannelAsync(args.Player.VoiceChannelId);
             

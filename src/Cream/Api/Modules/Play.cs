@@ -1,15 +1,16 @@
-﻿using DSharpPlus.CommandsNext;
+﻿using Cream.Api.Common;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using Lavalink4NET;
 using Lavalink4NET.Rest.Entities.Tracks;
 
-namespace Cream.Api.Commands;
+namespace Cream.Api.Modules;
 
-public class PlayCommand : BaseCommandModule
+public class Play : BaseCommandModule
 {
     private readonly IAudioService _audioService;
 
-    public PlayCommand(IAudioService audioService)
+    public Play(IAudioService audioService)
     {
         _audioService = audioService;
     }
@@ -25,6 +26,10 @@ public class PlayCommand : BaseCommandModule
 
         var track = await _audioService.Tracks
             .LoadTrackAsync(query, TrackSearchMode.YouTube);
+        
+        _audioService.Get
+
+        track.Con
 
         await player.PlayAsync(track!);
     }

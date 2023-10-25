@@ -5,13 +5,13 @@ using Lavalink4NET.Players;
 using Lavalink4NET.Players.Queued;
 using Microsoft.Extensions.Options;
 
-namespace Cream.Api.Commands;
+namespace Cream.Api.Modules;
 
-public class JoinCommand : BaseCommandModule
+public class Join : BaseCommandModule
 {
     private readonly IAudioService _audioService;
 
-    public JoinCommand(IAudioService audioService)
+    public Join(IAudioService audioService)
     {
         _audioService = audioService;
     }

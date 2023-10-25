@@ -2,13 +2,13 @@
 using DSharpPlus.CommandsNext.Attributes;
 using Lavalink4NET;
 
-namespace Cream.Api.Commands;
+namespace Cream.Api.Modules;
 
-public class LeaveCommand : BaseCommandModule
+public class Leave : BaseCommandModule
 {
     private readonly IAudioService _audioService;
 
-    public LeaveCommand(IAudioService audioService)
+    public Leave(IAudioService audioService)
     {
         _audioService = audioService;
     }
