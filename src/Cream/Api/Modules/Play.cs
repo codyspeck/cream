@@ -1,4 +1,5 @@
-﻿using DSharpPlus.CommandsNext;
+﻿using Cream.Api.Models;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using Lavalink4NET;
 using Lavalink4NET.Players;
@@ -20,7 +21,7 @@ public class Play : BaseCommandModule
     [Command("play")]
     public async Task Execute(CommandContext ctx, [RemainingText] string query)
     {
-        if (!_audioService.Players.TryGetPlayer(ctx.Guild.Id, out var player))
+        if (!_audioService.Players.TryGetPlayer<IQueuedLavalinkPlayer>(ctx.Guild.Id, out var player) || player is null)
             return;
         
         if (ctx.Member?.VoiceState is null)
@@ -35,6 +36,15 @@ public class Play : BaseCommandModule
         var track = await _audioService.Tracks
             .LoadTrackAsync(query, TrackSearchMode.YouTube);
 
-        await player.PlayAsync(track!);
+        if (track is null)
+            return;
+        
+        var trackData = new TrackData(new TrackReference(track))
+        {
+            ChannelId = ctx.Channel.Id,
+            GuildId = ctx.Guild.Id
+        };
+
+        await player.PlayAsync(trackData);
     }
 }
